@@ -3,7 +3,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  ActivityIndicator,
   ScrollView,
 } from 'react-native';
 import React, {useEffect} from 'react';
@@ -19,6 +18,8 @@ import {SetBookDetail} from './redux/action';
 import {useDispatch, useSelector} from 'react-redux';
 import {BOOKS_API} from '../../helpers/baseAPI';
 import axios from 'axios';
+import Loading from '../../components/Loading';
+import {colors} from '../../utils';
 
 const Index = ({route, navigation}) => {
   const {bookdetail} = useSelector(state => state.bookdetail);
@@ -68,17 +69,13 @@ const Index = ({route, navigation}) => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <View flex={1} justifyContent="center" alignItems="center">
-        <ActivityIndicator size={ms(120)} />
-      </View>
-    );
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   const price = rupiah(bookdetail.price);
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       <TouchableOpacity
         style={styles.backIcon}
         onPress={() => navigation.navigate('Home')}>
@@ -92,15 +89,17 @@ const Index = ({route, navigation}) => {
         <Icon name="ios-share-social-sharp" size={33} color="gray" />
       </TouchableOpacity>
 
-      <View style={styles.cardcontainer}>
+      <View style={styles.cardContainer}>
         <FastImage
           style={styles.images}
           source={{uri: bookdetail.cover_image}}
           resizeMode={FastImage.resizeMode.cover}
         />
-        <Text style={styles.text}>Title : {bookdetail.title}</Text>
-        <Text style={styles.text}>Author : {bookdetail.author}</Text>
-        <Text style={styles.text}>Publisher : {bookdetail.publisher}</Text>
+        <Poppins marginLeft={150} marginTop={-170} textAlign="left">
+          {bookdetail.title}
+        </Poppins>
+        <Poppins marginLeft={80}>author : {bookdetail.author}</Poppins>
+        <Poppins marginLeft={90}>publisher : {bookdetail.publisher}</Poppins>
       </View>
 
       <View style={styles.rowContainer}>
@@ -118,11 +117,13 @@ const Index = ({route, navigation}) => {
       </View>
 
       <View>
-        <Poppins type="Bold" size={16}>
+        <Poppins type="Bold" size={20} textAlign="left">
           Overview
         </Poppins>
 
-        <Poppins>{bookdetail.synopsis}</Poppins>
+        <Poppins textAlign="justify" marginRight={15}>
+          {bookdetail.synopsis}
+        </Poppins>
       </View>
     </ScrollView>
   );
@@ -131,12 +132,24 @@ const Index = ({route, navigation}) => {
 export default Index;
 
 const styles = StyleSheet.create({
-  cardcontainer: {
-    backgroundColor: 'lightblue',
-    width: ms(300),
+  container: {
+    flex: 1,
+    backgroundColor: colors.backgroundPage,
+  },
+  backIcon: {
+    left: ms(30),
+    top: ms(15),
+  },
+  iconShare: {
+    left: ms(290),
+    top: ms(-20),
+  },
+  cardContainer: {
+    backgroundColor: colors.cart.color,
+    width: ms(365),
     height: ms(180),
     marginTop: ms(-10),
-    marginLeft: ms(25),
+    marginLeft: ms(10),
     borderRadius: 10,
   },
   images: {
@@ -145,19 +158,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginLeft: ms(10),
   },
-  text: {
-    top: ms(-160),
-    left: ms(140),
-    width: ms(150),
-    borderRadius: ms(10),
-    justifyContent: 'space-between',
-    padding: 6,
-    alignContent: 'space-between',
-  },
+
   buyText: {
-    backgroundColor: 'lightblue',
+    backgroundColor: colors.button.background,
     width: ms(120),
-    height: ms(50),
+    height: ms(60),
     alignItems: 'center',
     borderRadius: ms(10),
     justifyContent: 'center',
@@ -167,18 +172,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: '#1111',
+    backgroundColor: colors.cart.color,
     marginTop: ms(30),
     height: ms(80),
     marginBottom: ms(20),
-  },
-
-  backIcon: {
-    left: ms(30),
-    top: ms(15),
-  },
-  iconShare: {
-    left: ms(290),
-    top: ms(-20),
   },
 });

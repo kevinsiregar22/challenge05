@@ -1,5 +1,5 @@
 const initialState = {
-  recommendeds: [{}],
+  recommend: [{}],
 };
 
 const HomeReducer = (state = initialState, action) => {
@@ -7,7 +7,7 @@ const HomeReducer = (state = initialState, action) => {
     case 'SET_RECOMMENDED':
       return {
         ...state,
-        recommendeds: action.payload,
+        recommend: action.payload,
       };
     default:
       return state;

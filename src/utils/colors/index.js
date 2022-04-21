@@ -1,6 +1,6 @@
 const mainColors = {
   light: '#F0EEF0',
-  // lightGreen: '#D6EAFF',
+  lightGreen: '#D6EAFF',
   dark: '#19191a',
   gray: '#bdc2c9',
   lightBlue: '#0BCAD1',
@@ -17,6 +17,9 @@ export const colors = {
   button: {
     background: mainColors.lightBlue,
     text: 'white',
+  },
+  cart: {
+    color: mainColors.lightGreen,
   },
   icon: {
     color: mainColors.green,

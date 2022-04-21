@@ -3,24 +3,24 @@ import {
   View,
   TouchableOpacity,
   FlatList,
-  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {ms} from 'react-native-size-matters';
 import axios from 'axios';
-import {SetRecommendeds} from './redux/action';
+import {SetRecommend} from './redux/action';
 import FastImage from 'react-native-fast-image';
 import {setLoading} from '../../store/globalAction';
 import {BOOKS_API} from '../../helpers/baseAPI';
 import Poppins from '../../components/Poppins';
 import {navigate} from '../../helpers/navigate';
 import {useDispatch, useSelector} from 'react-redux';
+import Loading from '../../components/Loading';
 
-const Index = ({navigation}) => {
+const Index = () => {
   const dispatch = useDispatch();
-  // isConnection
-  const {recommendeds} = useSelector(state => state.home);
-  const {refreshing, isLoading} = useSelector(state => state.Global);
+
+  const {recommend} = useSelector(state => state.home);
+  const { isLoading} = useSelector(state => state.Global);
   const {token, name} = useSelector(state => state.login);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Index = ({navigation}) => {
   const recommended = async () => {
     try {
       dispatch(setLoading(true));
-      // dispatch(SetRefreshing(true));
+   
       const res = await axios.get(`${BOOKS_API}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -38,32 +38,28 @@ const Index = ({navigation}) => {
       });
       console.log(res);
 
-      dispatch(SetRecommendeds(res.data.results));
+      dispatch(SetRecommend(res.data.results));
     } catch (error) {
       console.log(error);
     } finally {
       dispatch(setLoading(false));
-      // dispatch(SetRefreshing(false));
+    
     }
   };
 
   if (isLoading) {
-    return (
-      <View flex={1} justifyContent="center" alignItems="center">
-        <ActivityIndicator size={ms(120)} />
-      </View>
-    );
+    return <Loading />;
   }
 
   return (
     <View>
-      <Poppins>Selamat Datang, {name}</Poppins>
-      <Poppins type="Bold" size={16}>
-        Recommended
+      <Poppins textAlign="left" marginBottom={5} marginTop={4}>Selamat Datang, {name}</Poppins>
+      <Poppins type="Bold" size={20} textAlign="left">
+        Recommenhded
       </Poppins>
       <FlatList
         keyExtractor={item => item.id}
-        data={recommendeds}
+        data={recommend}
         renderItem={({item}) => (
           <TouchableOpacity
             onPress={() => navigate('DetailBooks', {id: item.id})}>
@@ -78,13 +74,13 @@ const Index = ({navigation}) => {
         )}
         horizontal={true}
       />
-      <Poppins type="Bold" size={16}>
+      <Poppins type="Bold" size={20} textAlign="left" >
         Popular Book
       </Poppins>
       <FlatList
         keyExtractor={item => item.id}
         numColumns={3}
-        data={recommendeds}
+        data={recommend}
         horizontal={false}
         renderItem={({item}) => (
           <TouchableOpacity
@@ -95,7 +91,7 @@ const Index = ({navigation}) => {
                 source={{uri: item.cover_image}}
                 resizeMode={FastImage.resizeMode.cover}
               />
-              <Poppins>{item.title}</Poppins>
+              <Poppins textAlign="left" marginLeft={2}>{item.title}</Poppins>
             </View>
           </TouchableOpacity>
         )}
