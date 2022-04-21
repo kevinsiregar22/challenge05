@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Poppins Testing render with 14px size 1`] = `
+<Text
+  style={
+    Object {
+      "color": "white",
+      "fontFamily": "Poppins-Regular",
+      "fontSize": 14,
+      "textAlign": "center",
+    }
+  }
+  testID="text component"
+>
+  audy
+</Text>
+`;
