@@ -5,21 +5,22 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React, {useEffect} from 'react';
 import 'intl';
-import 'intl/locale-data/jsonp/en';
-import Poppins from '../../components/Poppins';
-import Icon from 'react-native-vector-icons/Ionicons';
-import FastImage from 'react-native-fast-image';
-import {ms} from 'react-native-size-matters';
-import Share from 'react-native-share';
-import {setLoading} from '../../store/globalAction';
-import {SetBookDetail} from './redux/action';
-import {useDispatch, useSelector} from 'react-redux';
-import {BOOKS_API} from '../../helpers/baseAPI';
 import axios from 'axios';
-import Loading from '../../components/Loading';
 import {colors} from '../../utils';
+import 'intl/locale-data/jsonp/en';
+import {API} from '../../config/API';
+import Share from 'react-native-share';
+import React, {useEffect} from 'react';
+import {ms} from 'react-native-size-matters';
+import {SetBookDetail} from './redux/action';
+import Loading from '../../components/Loading';
+import Poppins from '../../components/Poppins';
+import FastImage from 'react-native-fast-image';
+import {BOOKS_API} from '../../helpers/baseAPI';
+import {setLoading} from '../../store/globalAction';
+import {useDispatch, useSelector} from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Index = ({route, navigation}) => {
   const {bookdetail} = useSelector(state => state.bookdetail);
@@ -56,6 +57,7 @@ const Index = ({route, navigation}) => {
     try {
       dispatch(setLoading(true));
       const res = await axios.get(`${BOOKS_API}/${id}`, {
+      // const res = await axios.get(API.BASE_API.concat('/books/').concat('id'), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -69,9 +71,9 @@ const Index = ({route, navigation}) => {
     }
   };
 
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const price = rupiah(bookdetail.price);
   return (
@@ -137,20 +139,21 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundPage,
   },
   backIcon: {
-    left: ms(30),
     top: ms(15),
+    left: ms(30),
   },
   iconShare: {
-    left: ms(290),
     top: ms(-20),
+    left: ms(290),
   },
   cardContainer: {
     backgroundColor: colors.cart.color,
     width: ms(365),
     height: ms(180),
+    borderRadius: 10,
     marginTop: ms(-10),
     marginLeft: ms(10),
-    borderRadius: 10,
+    marginBottom: ms(10),
   },
   images: {
     width: ms(120),
@@ -169,12 +172,12 @@ const styles = StyleSheet.create({
   },
 
   rowContainer: {
-    flexDirection: 'row',
+    height: ms(80),
+    margin: ms(10),
+    borderRadius: 10,
     alignItems: 'center',
+    flexDirection: 'row',
     justifyContent: 'space-around',
     backgroundColor: colors.cart.color,
-    marginTop: ms(30),
-    height: ms(80),
-    marginBottom: ms(20),
   },
 });

@@ -1,26 +1,22 @@
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
-import React, {useEffect} from 'react';
-import {ms} from 'react-native-size-matters';
+import {StyleSheet, View, TouchableOpacity, FlatList} from 'react-native';
 import axios from 'axios';
+import {colors} from '../../utils';
+import {API} from '../../config/API';
+import React, {useEffect} from 'react';
 import {SetRecommend} from './redux/action';
-import FastImage from 'react-native-fast-image';
-import {setLoading} from '../../store/globalAction';
-import {BOOKS_API} from '../../helpers/baseAPI';
-import Poppins from '../../components/Poppins';
-import {navigate} from '../../helpers/navigate';
-import {useDispatch, useSelector} from 'react-redux';
+import {ms} from 'react-native-size-matters';
 import Loading from '../../components/Loading';
+import Poppins from '../../components/Poppins';
+import FastImage from 'react-native-fast-image';
+import {navigate} from '../../helpers/navigate';
+import {setLoading} from '../../store/globalAction';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Index = () => {
   const dispatch = useDispatch();
 
   const {recommend} = useSelector(state => state.home);
-  const { isLoading} = useSelector(state => state.Global);
+  const {isLoading} = useSelector(state => state.Global);
   const {token, name} = useSelector(state => state.login);
 
   useEffect(() => {
@@ -30,8 +26,8 @@ const Index = () => {
   const recommended = async () => {
     try {
       dispatch(setLoading(true));
-   
-      const res = await axios.get(`${BOOKS_API}`, {
+
+      const res = await axios.get(API.BASE_API.concat('/books'), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,7 +39,6 @@ const Index = () => {
       console.log(error);
     } finally {
       dispatch(setLoading(false));
-    
     }
   };
 
@@ -52,8 +47,10 @@ const Index = () => {
   }
 
   return (
-    <View>
-      <Poppins textAlign="left" marginBottom={5} marginTop={4}>Selamat Datang, {name}</Poppins>
+    <View style={styles.container}>
+      <Poppins textAlign="left" marginBottom={5} marginTop={4}>
+        Selamat Datang, {name}
+      </Poppins>
       <Poppins type="Bold" size={20} textAlign="left">
         Recommenhded
       </Poppins>
@@ -74,7 +71,7 @@ const Index = () => {
         )}
         horizontal={true}
       />
-      <Poppins type="Bold" size={20} textAlign="left" >
+      <Poppins type="Bold" size={20} textAlign="left">
         Popular Book
       </Poppins>
       <FlatList
@@ -91,7 +88,9 @@ const Index = () => {
                 source={{uri: item.cover_image}}
                 resizeMode={FastImage.resizeMode.cover}
               />
-              <Poppins textAlign="left" marginLeft={2}>{item.title}</Poppins>
+              <Poppins textAlign="left" marginLeft={2}>
+                {item.title}
+              </Poppins>
             </View>
           </TouchableOpacity>
         )}
@@ -103,39 +102,39 @@ const Index = () => {
 export default Index;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.backgroundPage,
+  },
+
   romended: {
-    margin: ms(5),
     left: ms(8),
-    backgroundColor: 'white',
-    height: ms(240),
-    width: ms(110),
+    margin: ms(5),
+    width: ms(130),
+    height: ms(320),
     borderRadius: 10,
   },
 
   imageRecomen: {
+    width: ms(130),
     height: ms(180),
-    width: ms(110),
     borderRadius: 10,
   },
 
   popular: {
-    width: ms(100),
+    left: 10,
+    margin: 5,
+    width: ms(115),
     height: ms(240),
-    marginBottom: ms(20),
-    backgroundColor: '#D6EAFF',
-    margin: ms(5),
     borderRadius: 10,
-    alignItems: 'flex-end',
-    left: ms(30),
+    marginBottom: ms(20),
+    backgroundColor: colors.cart.color,
   },
 
-  text: {
-    textAlign: 'center',
-    top: ms(20),
-  },
   imagesPopular: {
+    width: ms(115),
     height: ms(160),
-    width: ms(100),
     borderRadius: 10,
+    justifyContent: 'space-between',
   },
 });
