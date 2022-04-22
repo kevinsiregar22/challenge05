@@ -1,5 +1,30 @@
 name: Deploy to telegram
+
 on:
-  workflow_dispatch: # dijalankan manual
+  workflow_dispatch: # allow jobs manual run
   release:
     types: [published]
+
+jobs:
+  send-to-telegram:
+    name: send file to telegram
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: instalasi modules
+        run: yarn
+
+      - name: make gradle executable
+        run: chmod +x ./android/gradlew
+
+      - name: generate apk
+        run: |
+          cd android
+          ./gradlew assembleRelease
+      - name: artifacts apk
+        uses: actions/upload-artifact@v1
+        with:
+          name: release
+          path: android/app/build/outputs/apk/release/app-release.apk
