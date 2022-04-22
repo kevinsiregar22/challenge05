@@ -5,7 +5,7 @@ const Poppins = ({
   type = 'Regular',
   children,
   color = 'black',
-  size = 16,
+  size = 17,
   textAlign = 'center',
   marginLeft = 15,
   marginBottom = 10,

@@ -6,7 +6,7 @@ exports[`Poppins Testing render with props in poppins 1`] = `
     Object {
       "color": "white",
       "fontFamily": "Poppins-Regular",
-      "fontSize": 16,
+      "fontSize": 17,
       "marginBottom": 10,
       "marginLeft": 15,
       "marginRight": 1,
