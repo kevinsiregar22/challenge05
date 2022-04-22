@@ -6,7 +6,7 @@ import Poppins from './Poppins';
 export default function PDF() {
   return (
     <SafeAreaView style={styles.container}>
-      <Poppins type="Bold">Open With pdf</Poppins>
+      <Poppins type="SemiBold">Open With pdf</Poppins>
       <Pdf
         source={{
           uri: 'http://samples.leanpub.com/thereactnativebook-sample.pdf',

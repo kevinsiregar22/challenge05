@@ -32,8 +32,8 @@ const Index = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res);
-
+      console.log(res.data);
+      console.log(res.data.results, 'result');
       dispatch(SetRecommend(res.data.results));
     } catch (error) {
       console.log(error);
