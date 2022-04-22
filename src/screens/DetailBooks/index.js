@@ -21,6 +21,7 @@ import {BOOKS_API} from '../../helpers/baseAPI';
 import {setLoading} from '../../store/globalAction';
 import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Pdf from '../../components/Pdf';
 
 const Index = ({route, navigation}) => {
   const {bookdetail} = useSelector(state => state.bookdetail);
@@ -57,7 +58,7 @@ const Index = ({route, navigation}) => {
     try {
       dispatch(setLoading(true));
       const res = await axios.get(`${BOOKS_API}/${id}`, {
-      // const res = await axios.get(API.BASE_API.concat('/books/').concat('id'), {
+        // const res = await axios.get(API.BASE_API.concat('/books/').concat('id'), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -127,6 +128,7 @@ const Index = ({route, navigation}) => {
           {bookdetail.synopsis}
         </Poppins>
       </View>
+      <Pdf />
     </ScrollView>
   );
 };
