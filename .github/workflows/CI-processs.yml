@@ -16,6 +16,6 @@ jobs:
       - name: instalasi modules
         run: yarn
 
-      #test all component
+      #test
       - name: unit testing
         run: yarn test
