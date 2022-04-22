@@ -71,7 +71,7 @@ const Index = () => {
         )}
         horizontal={true}
       />
-      <Poppins type="Bold" size={20} textAlign="left">
+      <Poppins type="Bold" size={30} textAlign="left">
         Popular Book
       </Poppins>
       <FlatList

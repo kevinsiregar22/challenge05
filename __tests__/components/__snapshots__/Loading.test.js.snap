@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should loading should first loading 1`] = `
+<View
+  alignItems="center"
+  flex={1}
+  justifyContent="center"
+>
+  <ActivityIndicator
+    size={188.57142857142856}
+  />
+</View>
+`;

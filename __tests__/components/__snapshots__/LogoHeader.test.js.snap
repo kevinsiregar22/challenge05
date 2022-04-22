@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should LogoHeader test LogoHeader 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Image
+    resizeMode="contain"
+    source={
+      Object {
+        "testUri": "../../../src/assets/icons/book6.png",
+      }
+    }
+    style={
+      Object {
+        "height": 235.71428571428572,
+        "width": 235.71428571428572,
+      }
+    }
+  />
+</View>
+`;
