@@ -1,11 +1,11 @@
-name: Deploy to telegram
-
+name: Continuous Integration (CI)
 on:
-  workflow_dispatch: #allow jobs manual run
+  workflow_dispatch:
+  # push to branch master
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   testing:
@@ -16,5 +16,6 @@ jobs:
       - name: instalasi modules
         run: yarn
 
+      #test all component
       - name: unit testing
         run: yarn test
