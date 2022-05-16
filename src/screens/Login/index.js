@@ -1,6 +1,6 @@
 import {StyleSheet, TouchableOpacity, View, Alert} from 'react-native';
-import {ms} from 'react-native-size-matters';
 import React from 'react';
+import {ms} from 'react-native-size-matters';
 import {Input, Button} from '@rneui/base';
 import {
   setLoginEmail,

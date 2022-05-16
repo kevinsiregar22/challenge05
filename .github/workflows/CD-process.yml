@@ -28,3 +28,9 @@ jobs:
         with:
           name: release
           path: android/app/build/outputs/apk/release/app-release.apk
+
+      - name: Upload to Telegram Bot
+        run: |
+          cd android/app/build/outputs/apk/release/
+          curl -X POST -H 'Content-Type: multipart/form-data' -F "chat_id=${{secrets.TG_CHAT_ID}}" -F text='App Released!' ${{secrets.TG_BOT_TOKEN}}/sendMessage
+          curl -X POST -H 'Content-Type: multipart/form-data' -F "chat_id=${{secrets.TG_CHAT_ID}}" -F document=@app-release.apk ${{secrets.TG_BOT_TOKEN}}/sendDocument
